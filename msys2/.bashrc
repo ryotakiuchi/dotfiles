@@ -1,5 +1,5 @@
 # PATH
-export PATH=$PATH:/c/Program\ Files:/c/Users/ryota/AppData/Local/atom:/c/Program\ Files\ \(x86\)/Google/Chrome/Application
+export PATH=$PATH:/c/Program\ Files:/c/Users/ryota/AppData/Local/atom/bin:/c/Program\ Files\ \(x86\)/Google/Chrome/Application
 
 # To the extent possible under law, the author(s) have dedicated all 
 # copyright and related and neighboring rights to this software to the 
