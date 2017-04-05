@@ -1,6 +1,9 @@
 # PATH
 export PATH=$PATH:/c/Program\ Files:/c/Users/ryota/AppData/Local/atom/bin:/c/Program\ Files\ \(x86\)/Google/Chrome/Application
 
+# color
+source ~/github.com/mavnn/mintty-colors-solarized/sol.dark
+
 # To the extent possible under law, the author(s) have dedicated all 
 # copyright and related and neighboring rights to this software to the 
 # public domain worldwide. This software is distributed without any warranty. 
