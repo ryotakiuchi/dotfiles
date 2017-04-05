@@ -1,4 +1,4 @@
 #! /bin/sh
-ln -sf ~/dotfiles/.vimrc ~/.vimrc
-ln -sf ~/dotfiles/.bashrc ~/.bashrc
-ln -sf ~/dotfiles/.bash_profile ~/.bash_profile
+ln -sf ~/dotfiles/msys2/.vimrc ~/.vimrc
+ln -sf ~/dotfiles/msys2/.bashrc ~/.bashrc
+ln -sf ~/dotfiles/msys2/.bash_profile ~/.bash_profile
