@@ -1,3 +1,41 @@
+" dein.vim
+" プラグインが実際にインストールされるディレクトリ
+let s:dein_dir = expand('~/.cache/dein')
+" dein.vim 本体
+let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
+
+" dein.vim がなければ github から落としてくる
+if &runtimepath !~# '/dein.vim'
+  if !isdirectory(s:dein_repo_dir)
+    execute '!git clone https://github.com/Shougo/dein.vim' s:dein_repo_dir
+  endif
+  execute 'set runtimepath^=' . fnamemodify(s:dein_repo_dir, ':p')
+endif
+
+" 設定開始
+if dein#load_state(s:dein_dir)
+  call dein#begin(s:dein_dir)
+
+  " プラグインリストを収めた TOML ファイル
+  " 予め TOML ファイル（後述）を用意しておく
+  let g:rc_dir    = expand('~/.vim/rc')
+  let s:toml      = g:rc_dir . '/dein.toml'
+  let s:lazy_toml = g:rc_dir . '/dein_lazy.toml'
+
+  " TOML を読み込み、キャッシュしておく
+  call dein#load_toml(s:toml,      {'lazy': 0})
+  call dein#load_toml(s:lazy_toml, {'lazy': 1})
+
+  " 設定終了
+  call dein#end()
+  call dein#save_state()
+endif
+
+" もし、未インストールものものがあったらインストール
+if dein#check_install()
+  call dein#install()
+endif
+
 set number " 行番号
 set title " titleをバッファ名にする 
 set showmatch " 対応したかっこのハイライト
@@ -29,74 +67,9 @@ set virtualedit=block " 矩形選択時、行末よりも後ろにカーソル�
 set backspace=indent,eol,start " backspaceで行頭を削除
 set wildmenu
 
-" 自動文字数カウント
-augroup WordCount
-    autocmd!
-    autocmd BufWinEnter,InsertLeave,CursorHold * call WordCount('char')
-augroup END
-let s:WordCountStr = ''
-let s:WordCountDict = {'word': 2, 'char': 3, 'byte': 4}
-function! WordCount(...)
-    if a:0 == 0
-        return s:WordCountStr
-    endif
-    let cidx = 3
-    silent! let cidx = s:WordCountDict[a:1]
-    let s:WordCountStr = ''
-    let s:saved_status = v:statusmsg
-    exec "silent normal! g\<c-g>"
-    if v:statusmsg !~ '^--'
-        let str = ''
-        silent! let str = split(v:statusmsg, ';')[cidx]
-        let cur = str2nr(matchstr(str, '\d\+'))
-        let end = str2nr(matchstr(str, '\d\+\s*$'))
-        if a:1 == 'char'
-            " ここで(改行コード数*改行コードサイズ)を'g<C-g>'の文字数から引く
-            let cr = &ff == 'dos' ? 2 : 1
-            let cur -= cr * (line('.') - 1)
-            let end -= cr * line('$')
-        endif
-        let s:WordCountStr = printf('%d/%d', cur, end)
-    endif
-    let v:statusmsg = s:saved_status
-    return s:WordCountStr
-endfunction
-
-source $VIMRUNTIME/macros/matchit.vim
-let b:match_words = "if:endif,foreach:endforeach,\<begin\>:\<end\>"
-
 " syntax highlight
 syntax enable
 set background=dark
+set t_Co=256
 colorscheme solarized
 
-" NeoBundle
-" Note: Skip initialization for vim-tiny or vim-small.
-if 0 | endif
-
-if &compatible
-  set nocompatible               " Be iMproved
-endif
-
-" Required:
-set runtimepath+=~/.vim/bundle/neobundle.vim/
-
-" Required:
-call neobundle#begin(expand('~/.vim/bundle/'))
-
-" Let NeoBundle manage NeoBundle
-" Required:
-NeoBundleFetch 'Shougo/neobundle.vim'
-
-" My Bundles here:
-" Refer to |:NeoBundle-examples|.
-" Note: You don't set neobundle setting in .gvimrc!
-
-call neobundle#end()
-
-" Required:
-filetype plugin indent on
-
-" If there are uninstalled bundles found on startup,
-" this will conveniently prompt you to install them.
-NeoBundleCheck
