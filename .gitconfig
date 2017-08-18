@@ -1,0 +1,14 @@
+[user]
+  name = Ryota Kiuchi
+  email = r-kiuchi@ps.murauchi.com
+[core]
+  # editor = atom --wait
+[alias]
+  fetch = fetch -p
+  st = status
+  co = checkout
+  br = branch
+  cm = commit -m
+  lo = log --oneline
+[commit]
+  cleanup = whitespace
