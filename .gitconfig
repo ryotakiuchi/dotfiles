@@ -1,6 +1,6 @@
 [user]
-  name = Ryota Kiuchi
-  email = r-kiuchi@ps.murauchi.com
+  name = Your name 
+  email = your@email.address
 [core]
   # editor = atom --wait
 [alias]
